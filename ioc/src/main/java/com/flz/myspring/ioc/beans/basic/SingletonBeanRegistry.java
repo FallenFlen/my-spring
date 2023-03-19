@@ -5,4 +5,6 @@ package com.flz.myspring.ioc.beans.basic;
  */
 public interface SingletonBeanRegistry {
     Object getSingletonBean(String beanName);
+
+    void registrySingletonBean(String beanName, Object singletonBean);
 }

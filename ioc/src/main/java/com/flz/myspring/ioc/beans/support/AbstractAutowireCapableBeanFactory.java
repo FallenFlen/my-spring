@@ -14,7 +14,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             throw new BeansException("create bean failed:" + e);
         }
         // 保存单例对象至DefaultSingletonBeanRegistry
-        addSingletonBean(beanName, bean);
+        registrySingletonBean(beanName, bean);
         return bean;
     }
 }

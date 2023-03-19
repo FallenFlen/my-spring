@@ -16,7 +16,8 @@ public abstract class DefaultSingletonBeanRegistry implements SingletonBeanRegis
         return beanMap.get(beanName);
     }
 
-    protected void addSingletonBean(String beanName, Object singletonBean) {
+    @Override
+    public void registrySingletonBean(String beanName, Object singletonBean) {
         this.beanMap.put(beanName, singletonBean);
     }
 }
