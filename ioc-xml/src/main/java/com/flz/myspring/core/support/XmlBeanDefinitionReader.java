@@ -36,7 +36,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         try (InputStream inputStream = resource.getInputStream()) {
             doLoadBeanDefinition(inputStream);
         } catch (Exception e) {
-            throw new BeansException("[XmlXmlBeanDefinitionReader] parse xml and load bean definitions failed", e);
+            throw new BeansException(e.getMessage(), e);
         }
     }
 

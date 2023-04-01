@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+    <bean id="myDao" class="com.flz.myspring.iocxml.test.bean.MyDao"/>
+
+    <bean id="myService" class="com.flz.myspring.iocxml.test.bean.MyService">
+        <property name="name" value="test-xml" ref="123"/>
+        <property name="myDao" ref="myDao"/>
+    </bean>
+
+</beans>
