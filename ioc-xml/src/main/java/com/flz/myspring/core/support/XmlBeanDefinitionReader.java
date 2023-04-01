@@ -4,9 +4,14 @@ import com.flz.myspring.core.io.Resource;
 import com.flz.myspring.core.io.ResourceLoader;
 import com.flz.myspring.ioc.beans.basic.BeanDefinitionRegistry;
 import com.flz.myspring.ioc.beans.exception.BeansException;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
     public XmlBeanDefinitionReader(BeanDefinitionRegistry beanDefinitionRegistry) {
@@ -21,7 +26,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
     public void loadBeanDefinitions(Resource resource) throws BeansException {
         try (InputStream inputStream = resource.getInputStream()) {
             doLoadBeanDefinition(inputStream);
-        } catch (IOException e) {
+        } catch (IOException | DocumentException e) {
             throw new BeansException("[XmlXmlBeanDefinitionReader] parse xml and load bean definitions failed", e);
         }
     }
@@ -39,7 +44,11 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         loadBeanDefinitions(resource);
     }
 
-    private void doLoadBeanDefinition(InputStream inputStream) {
-
+    private void doLoadBeanDefinition(InputStream inputStream) throws DocumentException {
+        SAXReader saxReader = new SAXReader();
+        Document document = saxReader.read(inputStream);
+        Element rootElement = document.getRootElement();
+        List<Element> elements = rootElement.elements("bean");
+//        if(CollectionUt)
     }
 }

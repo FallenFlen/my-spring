@@ -24,8 +24,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
+            <groupId>com.flz</groupId>
+            <artifactId>common</artifactId>
         </dependency>
     </dependencies>
 </project>
