@@ -63,8 +63,8 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         }
 
         for (Element e : elements) {
-            String beanName = e.elementTextTrim("id");
-            String beanClassName = e.elementTextTrim("value");
+            String beanName = e.attributeValue("id");
+            String beanClassName = e.attributeValue("class");
             Class<?> beanClass = Class.forName(beanClassName);
             BeanDefinition beanDefinition = new BeanDefinition(beanClass);
             List<Element> properties = e.elements("property");
@@ -82,10 +82,9 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
         List<PropertyValue> propertyValues = properties.stream()
                 .map((p) -> {
-                    String name = p.elementTextTrim("name");
-                    // value为自定义值，允许首尾存在空格
-                    String value = p.elementText("value");
-                    String ref = p.elementTextTrim("ref");
+                    String name = p.attributeValue("name");
+                    String value = p.attributeValue("value");
+                    String ref = p.attributeValue("ref");
                     Object valueObj = value;
 
                     // property标签中，value和ref不能同时出现
@@ -94,7 +93,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
                     }
 
                     if (StringUtils.isNotEmpty(ref)) {
-                        valueObj = new BeanReference(ref);
+                        valueObj = new BeanReference(ref.trim());
                     }
 
                     return new PropertyValue(name, valueObj);

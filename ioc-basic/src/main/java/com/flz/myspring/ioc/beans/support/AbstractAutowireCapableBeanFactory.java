@@ -7,11 +7,6 @@ import com.flz.myspring.ioc.beans.exception.BeansException;
 import com.flz.myspring.ioc.beans.support.strategy.InstantiationStrategy;
 import com.flz.myspring.ioc.beans.support.strategy.SimpleInstantiationStrategy;
 import com.flz.myspring.ioc.beans.utils.BeanUtils;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.ObjectUtils;
-
-import java.lang.reflect.Constructor;
-import java.util.Arrays;
 
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
     private InstantiationStrategy instantiationStrategy = new SimpleInstantiationStrategy();
@@ -27,7 +22,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             registrySingletonBean(beanName, bean);
             return bean;
         } catch (Exception e) {
-            throw new BeansException("create bean failed:" + e);
+            throw new BeansException("create bean failed", e);
         }
     }
 
