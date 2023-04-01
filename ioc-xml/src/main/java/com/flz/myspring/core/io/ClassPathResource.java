@@ -1,7 +1,5 @@
 package com.flz.myspring.core.io;
 
-import org.apache.commons.lang3.ClassUtils;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +15,7 @@ public class ClassPathResource implements Resource {
 
     public ClassPathResource(String path, ClassLoader classLoader) {
         this.path = path;
-        this.classLoader = classLoader;
+        this.classLoader = classLoader == null ? Thread.currentThread().getContextClassLoader() : classLoader;
     }
 
     @Override
