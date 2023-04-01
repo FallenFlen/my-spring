@@ -23,7 +23,15 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
      */
     @Override
     public void registryBeanDefinition(String beanName, BeanDefinition beanDefinition) {
+        if (this.containsBeanDefinition(beanName)) {
+            throw new BeansException(String.format("duplicated bean name[%s], registry bean definition failed", beanName));
+        }
         this.beanDefinitionMap.put(beanName, beanDefinition);
+    }
+
+    @Override
+    public boolean containsBeanDefinition(String beanName) {
+        return this.beanDefinitionMap.containsKey(beanName);
     }
 
     @Override

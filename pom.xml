@@ -22,6 +22,7 @@
         <commons-lang.version>3.12.0</commons-lang.version>
         <common.version>1.0.0</common.version>
         <dom4j.version>2.1.4</dom4j.version>
+        <common-collection.version>4.4</common-collection.version>
     </properties>
 
     <dependencyManagement>
@@ -46,6 +47,11 @@
                 <groupId>org.dom4j</groupId>
                 <artifactId>dom4j</artifactId>
                 <version>${dom4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${common-collection.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -3,12 +3,10 @@ package com.flz.myspring.beans.test;
 import com.flz.myspring.beans.test.bean.MyDao;
 import com.flz.myspring.beans.test.bean.MyService;
 import com.flz.myspring.ioc.beans.basic.BeanDefinition;
-import com.flz.myspring.ioc.beans.basic.BeanFactory;
 import com.flz.myspring.ioc.beans.basic.BeanReference;
 import com.flz.myspring.ioc.beans.basic.PropertyValue;
 import com.flz.myspring.ioc.beans.basic.PropertyValues;
 import com.flz.myspring.ioc.beans.support.DefaultListableBeanFactory;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -2,17 +2,26 @@ package com.flz.myspring.core.support;
 
 import com.flz.myspring.core.io.Resource;
 import com.flz.myspring.core.io.ResourceLoader;
+import com.flz.myspring.ioc.beans.basic.BeanDefinition;
 import com.flz.myspring.ioc.beans.basic.BeanDefinitionRegistry;
+import com.flz.myspring.ioc.beans.basic.BeanReference;
+import com.flz.myspring.ioc.beans.basic.PropertyValue;
+import com.flz.myspring.ioc.beans.basic.PropertyValues;
 import com.flz.myspring.ioc.beans.exception.BeansException;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.stream.Collectors;
 
+/**
+ * 解析xml并注册bean
+ */
 public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
     public XmlBeanDefinitionReader(BeanDefinitionRegistry beanDefinitionRegistry) {
         super(beanDefinitionRegistry);
@@ -26,7 +35,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
     public void loadBeanDefinitions(Resource resource) throws BeansException {
         try (InputStream inputStream = resource.getInputStream()) {
             doLoadBeanDefinition(inputStream);
-        } catch (IOException | DocumentException e) {
+        } catch (Exception e) {
             throw new BeansException("[XmlXmlBeanDefinitionReader] parse xml and load bean definitions failed", e);
         }
     }
@@ -44,11 +53,55 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         loadBeanDefinitions(resource);
     }
 
-    private void doLoadBeanDefinition(InputStream inputStream) throws DocumentException {
+    private void doLoadBeanDefinition(InputStream inputStream) throws DocumentException, ClassNotFoundException {
         SAXReader saxReader = new SAXReader();
         Document document = saxReader.read(inputStream);
         Element rootElement = document.getRootElement();
         List<Element> elements = rootElement.elements("bean");
-//        if(CollectionUt)
+        if (CollectionUtils.isEmpty(elements)) {
+            throw new BeansException("no bean tag element can be parsed from xml");
+        }
+
+        for (Element e : elements) {
+            String beanName = e.elementTextTrim("id");
+            String beanClassName = e.elementTextTrim("value");
+            Class<?> beanClass = Class.forName(beanClassName);
+            BeanDefinition beanDefinition = new BeanDefinition(beanClass);
+            List<Element> properties = e.elements("property");
+            PropertyValues propertyValues = processPropertyValues(properties);
+            beanDefinition.setPropertyValues(propertyValues);
+            getRegistry().registryBeanDefinition(beanName, beanDefinition);
+        }
+
+    }
+
+    private PropertyValues processPropertyValues(List<Element> properties) {
+        if (CollectionUtils.isEmpty(properties)) {
+            return new PropertyValues();
+        }
+
+        List<PropertyValue> propertyValues = properties.stream()
+                .map((p) -> {
+                    String name = p.elementTextTrim("name");
+                    // value为自定义值，允许首尾存在空格
+                    String value = p.elementText("value");
+                    String ref = p.elementTextTrim("ref");
+                    Object valueObj = value;
+
+                    // property标签中，value和ref不能同时出现
+                    if (StringUtils.isNotEmpty(value) && StringUtils.isNotEmpty(ref)) {
+                        throw new BeansException("property tag does not allow both 'value' and 'ref' property present at same time");
+                    }
+
+                    if (StringUtils.isNotEmpty(ref)) {
+                        valueObj = new BeanReference(ref);
+                    }
+
+                    return new PropertyValue(name, valueObj);
+                })
+                .collect(Collectors.toList());
+        return new PropertyValues() {{
+            addPropertyValues(propertyValues);
+        }};
     }
 }
