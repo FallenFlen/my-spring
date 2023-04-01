@@ -37,6 +37,6 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
     @Override
     protected BeanDefinition getBeanDefinition(String beanName) throws BeansException {
         return Optional.ofNullable(this.beanDefinitionMap.get(beanName))
-                .orElseThrow(() -> new BeansException(String.format("no bean found with name '%s'", beanName)));
+                .orElseThrow(() -> new BeansException(String.format("no bean definition found with bean name '%s'", beanName)));
     }
 }
