@@ -8,7 +8,7 @@
     <artifactId>my-spring</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>ioc</module>
+        <module>ioc-basic</module>
     </modules>
 
     <packaging>pom</packaging>
