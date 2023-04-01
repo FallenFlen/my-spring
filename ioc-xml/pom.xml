@@ -9,8 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ioc-basic</artifactId>
-    <version>1.0.0</version>
+    <artifactId>ioc-xml</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -19,13 +18,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
+            <groupId>com.flz</groupId>
+            <artifactId>ioc-basic</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 </project>
