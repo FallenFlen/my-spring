@@ -5,4 +5,6 @@ package com.flz.myspring.ioc.beans.basic;
  */
 public interface BeanFactory {
     Object getBean(String beanName);
+
+    Object getBean(String beanName, Object... args);
 }

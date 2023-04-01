@@ -17,6 +17,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <junit.version>5.9.2</junit.version>
+        <commons-lang.version>3.12.0</commons-lang.version>
     </properties>
 
     <dependencyManagement>
@@ -27,6 +28,12 @@
                 <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>
