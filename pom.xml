@@ -11,6 +11,7 @@
         <module>ioc-basic</module>
         <module>ioc-xml</module>
         <module>common</module>
+        <module>ioc-context</module>
     </modules>
 
     <packaging>pom</packaging>

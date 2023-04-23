@@ -9,6 +9,7 @@
         <module name="common" />
         <module name="ioc-xml" />
         <module name="ioc-basic" />
+        <module name="ioc-context" />
       </profile>
     </annotationProcessing>
   </component>
