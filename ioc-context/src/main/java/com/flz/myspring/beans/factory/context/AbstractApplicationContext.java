@@ -41,4 +41,24 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
     protected abstract void refreshBeanFactory() throws BeansException;
 
     protected abstract ConfigurableListableBeanFactory getBeanFactory() throws BeansException;
+
+    @Override
+    public Object getBean(String beanName) {
+        return getBeanFactory().getBean(beanName);
+    }
+
+    @Override
+    public Object getBean(String beanName, Object... args) {
+        return getBeanFactory().getBean(beanName, args);
+    }
+
+    @Override
+    public <T> Map<String, T> getBeansOfType(Class<T> type) throws BeansException {
+        return getBeanFactory().getBeansOfType(type);
+    }
+
+    @Override
+    public String[] getBeanDefinitionNames() {
+        return getBeanFactory().getBeanDefinitionNames();
+    }
 }
