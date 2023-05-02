@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+    <bean id="userDao" class="com.flz.myspring.factory.context.test.bean.UserDao"/>
+
+    <bean id="userService" class="com.flz.myspring.factory.context.test.bean.UserService">
+        <property name="company" value="Valve"/>
+        <property name="location" value="America"/>
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean id="myBPP" class="com.flz.myspring.factory.context.test.bean.MyBPP"/>
+
+    <bean id="myBFPP" class="com.flz.myspring.factory.context.test.bean.MyBFPP"/>
+</beans>
