@@ -3,7 +3,6 @@ package com.flz.myspring.ioc.beans.support;
 import com.flz.myspring.ioc.beans.basic.BeanDefinition;
 import com.flz.myspring.ioc.beans.basic.BeanDefinitionRegistry;
 import com.flz.myspring.ioc.beans.basic.ConfigurableListableBeanFactory;
-import com.flz.myspring.ioc.beans.config.BeanPostProcessor;
 import com.flz.myspring.ioc.beans.exception.BeansException;
 
 import java.util.HashMap;
@@ -44,11 +43,6 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
     @Override
     public void preInstantiateSingletons() throws BeansException {
-
-    }
-
-    @Override
-    public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
 
     }
 

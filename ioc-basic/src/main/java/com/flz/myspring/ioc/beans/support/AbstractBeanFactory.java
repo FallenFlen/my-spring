@@ -2,8 +2,11 @@ package com.flz.myspring.ioc.beans.support;
 
 import com.flz.myspring.ioc.beans.basic.BeanDefinition;
 import com.flz.myspring.ioc.beans.basic.ConfigurableBeanFactory;
+import com.flz.myspring.ioc.beans.config.BeanPostProcessor;
 import com.flz.myspring.ioc.beans.exception.BeansException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -12,6 +15,8 @@ import java.util.Optional;
  * - 将创建和的单例bean进行注册
  */
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
+    private List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
+
     /**
      * 获取bean
      * - 如果bean存在于容器，则直接返回
@@ -32,6 +37,16 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
                     BeanDefinition beanDefinition = getBeanDefinition(beanName);
                     return createBean(beanName, beanDefinition, args);
                 });
+    }
+
+    @Override
+    public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
+        beanPostProcessors.remove(beanPostProcessor);
+        beanPostProcessors.add(beanPostProcessor);
+    }
+
+    public List<BeanPostProcessor> getBeanPostProcessors() {
+        return this.beanPostProcessors;
     }
 
     /**
