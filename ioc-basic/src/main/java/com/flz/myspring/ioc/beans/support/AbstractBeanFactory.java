@@ -1,7 +1,7 @@
 package com.flz.myspring.ioc.beans.support;
 
 import com.flz.myspring.ioc.beans.basic.BeanDefinition;
-import com.flz.myspring.ioc.beans.basic.BeanFactory;
+import com.flz.myspring.ioc.beans.basic.ConfigurableBeanFactory;
 import com.flz.myspring.ioc.beans.exception.BeansException;
 
 import java.util.Optional;
@@ -11,7 +11,7 @@ import java.util.Optional;
  * - 创建单例bean
  * - 将创建和的单例bean进行注册
  */
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
+public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
     /**
      * 获取bean
      * - 如果bean存在于容器，则直接返回

@@ -32,5 +32,11 @@
             <groupId>com.flz</groupId>
             <artifactId>common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.flz</groupId>
+            <artifactId>ioc-xml</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

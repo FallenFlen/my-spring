@@ -2,6 +2,8 @@ package com.flz.myspring.ioc.beans.support;
 
 import com.flz.myspring.ioc.beans.basic.BeanDefinition;
 import com.flz.myspring.ioc.beans.basic.BeanDefinitionRegistry;
+import com.flz.myspring.ioc.beans.basic.ConfigurableListableBeanFactory;
+import com.flz.myspring.ioc.beans.config.BeanPostProcessor;
 import com.flz.myspring.ioc.beans.exception.BeansException;
 
 import java.util.HashMap;
@@ -11,7 +13,7 @@ import java.util.Optional;
 /**
  * 核心实现类，实现BeanDefinition的注册
  */
-public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory implements BeanDefinitionRegistry {
+public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory implements BeanDefinitionRegistry, ConfigurableListableBeanFactory {
     private Map<String, BeanDefinition> beanDefinitionMap = new HashMap<>();
 
     /**
@@ -35,8 +37,28 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
     }
 
     @Override
-    protected BeanDefinition getBeanDefinition(String beanName) throws BeansException {
+    public BeanDefinition getBeanDefinition(String beanName) throws BeansException {
         return Optional.ofNullable(this.beanDefinitionMap.get(beanName))
                 .orElseThrow(() -> new BeansException(String.format("no bean definition found with bean name '%s'", beanName)));
+    }
+
+    @Override
+    public void preInstantiateSingletons() throws BeansException {
+
+    }
+
+    @Override
+    public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
+
+    }
+
+    @Override
+    public <T> Map<String, T> getBeansOfType(Class<T> type) throws BeansException {
+        return null;
+    }
+
+    @Override
+    public String[] getBeanDefinitionNames() {
+        return new String[0];
     }
 }

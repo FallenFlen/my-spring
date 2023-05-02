@@ -53,6 +53,13 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         loadBeanDefinitions(resource);
     }
 
+    @Override
+    public void loadBeanDefinitions(String... locations) throws BeansException {
+        for (String location : locations) {
+            this.loadBeanDefinitions(location);
+        }
+    }
+
     private void doLoadBeanDefinition(InputStream inputStream) throws DocumentException, ClassNotFoundException {
         SAXReader saxReader = new SAXReader();
         Document document = saxReader.read(inputStream);
