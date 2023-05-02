@@ -43,16 +43,24 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
     @Override
     public void preInstantiateSingletons() throws BeansException {
-
+        this.beanDefinitionMap.keySet().forEach(this::getBean);
     }
 
     @Override
     public <T> Map<String, T> getBeansOfType(Class<T> type) throws BeansException {
-        return null;
+        Map<String, T> result = new HashMap<>();
+        this.beanDefinitionMap.forEach((beanName, beanDefinition) -> {
+            Class beanClass = beanDefinition.getBeanClass();
+            // 如果beanClass是type的父类或者父接口
+            if (type.isAssignableFrom(beanClass)) {
+                result.put(beanName, (T) getBean(beanName));
+            }
+        });
+        return result;
     }
 
     @Override
     public String[] getBeanDefinitionNames() {
-        return new String[0];
+        return this.beanDefinitionMap.keySet().toArray(new String[0]);
     }
 }
